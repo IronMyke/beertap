@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/rviewer?autoReconnect=true
+  mysqldb:
+    image: "arm64v8/mysql:8-oracle"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: rviewer
+      MYSQL_USER: rviewer
+      MYSQL_PASSWORD: rviewer
+      MYSQL_ROOT_PASSWORD: root
